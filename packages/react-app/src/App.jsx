@@ -1,7 +1,7 @@
 import React from "react";
 import { useEthers } from "@usedapp/core";
 import Loader from "./components/Loader";
-import {usePool} from './hooks'
+import {usePools} from './hooks'
 import Exchange from "./components/Exchange";
 import WalletButton from "./components/WalletButton"
 import style from "./styles";
@@ -11,7 +11,7 @@ import styles from "./styles";
 const App = () => {
 
   const {account} = useEthers() ; 
-  const poolsLoading = false ; 
+  const [loading, pools] = usePools() ; 
 
 
   return (
@@ -34,9 +34,9 @@ const App = () => {
                 <div className="pink_gradient"/>
                   <div className={style.exchange}>
                     {account ? (
-                      poolsLoading ? (
+                      loading ? (
                         <Loader title = "Loading pools, please wait..." /> 
-                      ): <Exchange/>
+                      ): <Exchange pools = {pools}/>
                     ) : <Loader title = "Please connect your wallet"/>}
                   </div>
                 <div className="blue_gradient"/>
